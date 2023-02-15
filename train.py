@@ -15,8 +15,10 @@ logging.set_verbosity(logging.ERROR)
 
 
 
-labels = ['Monnalisa',"L'urlo di Munch",'Notte Stellata','Bacio','Venere','Persistenza','Ragazza con Turbante','Guernica']
+labels = ['Monnalisa',"L'urlo di Munch",'Notte Stellata','Bacio','Venere','Persistenza','Ragazza con Turbante','Guernica','L\'ultima cena']
 spec = model_spec.get("efficientdet_lite0")
+
+spec.config.autoaugment_policy = 'v0'
 
 train_data = object_detector.DataLoader.from_pascal_voc("dataset/train/images","dataset/train/Annotations",labels)
 
@@ -25,7 +27,7 @@ validation_data = object_detector.DataLoader.from_pascal_voc("dataset/validation
 test_data = object_detector.DataLoader.from_pascal_voc("dataset/test/images","dataset/test/Annotations",labels)
 
 #Train the model
-model = object_detector.create(train_data, model_spec=spec, epochs=50, batch_size=8, train_whole_model=True, validation_data=validation_data)
+model = object_detector.create(train_data, model_spec=spec, epochs=50, batch_size=8, train_whole_model=True, validation_data=validation_data,)
 
 
 print("\n\n Evaluating trained model\n")
@@ -36,7 +38,11 @@ model.export(export_dir='.')
 
 print("\n\nEvaluating tflite model")
 
-model.evaluate_tflite('model.tflite', test_data)
 
-
+###
+# modello di object detection cos'è l'object detection come è stata usata
+# cosa è il transfer learning
+# efficientdet e efficientdet0
+# tensorflow lite model maker
+###
 
