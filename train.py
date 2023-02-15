@@ -32,12 +32,15 @@ model = object_detector.create(train_data, model_spec=spec, epochs=50, batch_siz
 
 print("\n\n Evaluating trained model\n")
 #Test the model
-model.evaluate(test_data)
+ev = model.evaluate(test_data)
+print(ev)
 
 model.export(export_dir='.')
 
 print("\n\nEvaluating tflite model")
 
+ev = model.evaluate('model.tfite',test_data)
+print(ev)
 
 ###
 # modello di object detection cos'è l'object detection come è stata usata
